@@ -76,14 +76,14 @@ print(camaro)
   [ 26  25  23]]]
 ```
 
-Printing our `camaro` variable shows the `numpy` array of values for the image. The numbers in these arrays range from 0-255, which represent the intensity of the color. It's important to note the **shape**, or dimensions, of this array:
+Printing our `camaro` variable shows the `numpy` array of values for the image. The numbers in these arrays range from 0-255, which represent the intensity of the color. It's important to note the *shape*, or dimensions, of this array:
 
 ```ruby
 camaro.shape
 >>> (1200, 1600, 3)
 ```
 
-We're working with an image that's 1200 px in height and 1600 px in width. The `3` in the shape is because when we load the image, it separates it into the three color channels: red, green, blue (RGB).
+We're working with an image that's 1200 px in height and 1600 px in width. The `3` in this tuple is because when the image is loaded, it's separated into three color channels: red, green, blue (RGB).
 
 Let's see what image we're working with:
 
@@ -92,7 +92,11 @@ plt.imshow(camaro)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_plt.jpg "Camaro")
+![alt text](/img/posts/camaro.jpg "Camaro")
+
+asdf
+
+<img scr="./img/posts/camaro.jpg" alt="Camaro" width="75%" height="75%"/>
 
 We've loaded our image and displayed it using `matplotlib`! Let's save this file:
 
@@ -100,7 +104,7 @@ We've loaded our image and displayed it using `matplotlib`! Let's save this file
 io.imsave('camaro_plt.jpg', camaro)
 ```
 
-This code can be used to save any file throughout this walk-through. Alright, let's see if we can **crop** this image to just the camaro:
+This code can be used to save any file throughout this walk-through. Alright, let's see if we can *crop* this image to just the camaro:
 
 ```ruby
 cropped = camaro[350:1100, 200:1400, :]
@@ -112,7 +116,7 @@ plt.show()
 
 Nice! Using `numpy` slicing, we've selected the values in the arrays to just show the camaro.
 
-Next, let's flip the image. First, **vertically**:
+Next, let's flip the image. First, *vertically*:
 
 ```ruby
 vertical_flip = camaro[::-1, :, :]
@@ -122,7 +126,7 @@ plt.show()
 
 ![alt text](/img/posts/camaro_vertical_flip.jpg "Camaro Vertical Flip")
 
-Very cool! We've used `camaro[::-1, :, :]` to *flip* all values in our first array be selecting the values in reverse order. If we want to flip it **horizontally**:
+Very cool! We've used `camaro[::-1, :, :]` to *flip* all values in our first array be selecting the values in reverse order. If we want to flip it *horizontally*:
 
 ```ruby
 horizontal_flip = camaro[:, ::-1, :]
@@ -132,30 +136,44 @@ plt.show()
 
 ![alt text](/img/posts/camaro_horizontal_flip.jpg "Camaro Horizontal Flip")
 
-Well done! Now, remember how those three color channels? Let's have some fun with that. First, lets grab just the **red** colors. To do this
+Well done! Now, remember how those three color channels? Let's have some fun with that. First, lets grab just the *red* color channel. To do this, we need to zero out the other color channels. If we only cropped out the other channels (selected the *red* channel only), then our image wouldn't render as red. To avoid this, we'll create an array of zeros with the same shape as our `camaro` array:
 
 ```ruby
-print(multiples)
->>> {4, 6, 8, 10, 12, 14, 16, 18, 20}
+red = np.zeros(camaro.shape, dtype='uint8')
 ```
 
+Then we'll set the first array of our `red` array equal to the values of the first array in our `camaro` array:
+select the first group of arrays
 
+```ruby
+red[:, :, 0] = camaro[:, :, 0]
+```
 
+Let's see how it looks:
 
+```ruby
+plt.imshow(red)
+plt.show()
+```
 
+![alt text](/img/posts/camaro_red.jpg "Red Camaro")
 
+We can also do this for blue and green:
 
+```ruby
+green = np.zeros(camaro.shape, dtype='uint8')
+green[:, :, 1] = camaro[:, :, 1]
 
+blue = np.zeros(camaro.shape, dtype='uint8')
+blue[:, :, 2] = camaro[:, :, 2]
+```
 
+Finally, let's put these together by stacking the arrays:
 
+```ruby
+camaro_rainbow = np.vstack((red, green, blue))
+plt.imshow(camaro_rainbow)
+plt.show()
+```
 
-
-
-
-
-
-
-
-
-
-
+![alt text](/img/posts/camaro_rainbow.jpg "Rainbow Camaro")
