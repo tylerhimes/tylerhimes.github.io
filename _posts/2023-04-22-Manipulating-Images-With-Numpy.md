@@ -1,13 +1,16 @@
 ---
 layout: post
 title: Manipulating Images with Numpy ONLY
-image: "/posts/camaro.jpg"
+image: "/posts/camaro_rainbow.jpg"
 tags: [Python, Numpy, Images]
 ---
 
 Manipulating images can be an essential task in data science as it allows for data augmentation which can improve data accuracy by reducing overfitting. In this post, I walk through how to manipulate images using only numpy!
 
 ---
+
+<img scr="../img/posts/camaro.jpg" alt="Camaro"/>
+width="75%" height="75%"
 
 First thing to do is import the necessary packages:
 
@@ -93,10 +96,6 @@ plt.show()
 ```
 
 ![alt text](/img/posts/camaro.jpg "Camaro")
-
-asdf
-
-<img scr="./img/posts/camaro.jpg" alt="Camaro" width="75%" height="75%"/>
 
 We've loaded our image and displayed it using `matplotlib`! Let's save this file:
 
