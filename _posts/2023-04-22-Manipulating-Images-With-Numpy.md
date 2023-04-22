@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Manipulating Images with Numpy ONLY
-image: "/posts/camaro_small.jpg"
+image: "/posts/camaro.jpg"
 tags: [Python, Numpy, Images]
 ---
 
