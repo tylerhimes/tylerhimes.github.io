@@ -1,16 +1,13 @@
 ---
 layout: post
 title: Manipulating Images with Numpy ONLY
-image: "/posts/camaro_rainbow.jpg"
+image: "/posts/camaro_small.jpg"
 tags: [Python, Numpy, Images]
 ---
 
 Manipulating images can be an essential task in data science as it allows for data augmentation which can improve data accuracy by reducing overfitting. In this post, I walk through how to manipulate images using only numpy!
 
 ---
-
-<img scr="../img/posts/camaro.jpg" alt="Camaro"/>
-width="75%" height="75%"
 
 First thing to do is import the necessary packages:
 
@@ -95,7 +92,7 @@ plt.imshow(camaro)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro.jpg "Camaro")
+![alt text](/img/posts/camaro_small.jpg "Camaro")
 
 We've loaded our image and displayed it using `matplotlib`! Let's save this file:
 
@@ -111,7 +108,7 @@ plt.imshow(cropped)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_cropped.jpg "Camaro Cropped")
+![alt text](/img/posts/camaro_cropped_small.jpg "Camaro Cropped")
 
 Nice! Using `numpy` slicing, we've selected the values in the arrays to just show the camaro.
 
@@ -123,7 +120,7 @@ plt.imshow(vertical_flip)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_vertical_flip.jpg "Camaro Vertical Flip")
+![alt text](/img/posts/camaro_vertical_flip_small.jpg "Camaro Vertical Flip")
 
 Very cool! We've used `camaro[::-1, :, :]` to *flip* all values in our first array be selecting the values in reverse order. If we want to flip it *horizontally*:
 
@@ -133,7 +130,7 @@ plt.imshow(horizontal_flip)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_horizontal_flip.jpg "Camaro Horizontal Flip")
+![alt text](/img/posts/camaro_horizontal_flip_small.jpg "Camaro Horizontal Flip")
 
 Well done! Now, remember how those three color channels? Let's have some fun with that. First, lets grab just the *red* color channel. To do this, we need to zero out the other color channels. If we only cropped out the other channels (selected the *red* channel only), then our image wouldn't render as red. To avoid this, we'll create an array of zeros with the same shape as our `camaro` array:
 
@@ -155,7 +152,7 @@ plt.imshow(red)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_red.jpg "Red Camaro")
+![alt text](/img/posts/camaro_red_small.jpg "Red Camaro")
 
 We can also do this for blue and green:
 
@@ -175,4 +172,4 @@ plt.imshow(camaro_rainbow)
 plt.show()
 ```
 
-![alt text](/img/posts/camaro_rainbow.jpg "Rainbow Camaro")
+![alt text](/img/posts/camaro_rainbow_small.jpg "Rainbow Camaro")
