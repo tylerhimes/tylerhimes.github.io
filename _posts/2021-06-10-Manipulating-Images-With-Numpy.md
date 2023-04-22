@@ -5,7 +5,7 @@ image: "/posts/camaro.jpg"
 tags: [Python, Numpy, Images]
 ---
 
-Manipulating images can be an essential task in data science as it allows for data augmentation which can improve data accuracy by reducing overfitting. In this post, I walk through how to manipulate images using numpy alone!
+Manipulating images can be an essential task in data science as it allows for data augmentation which can improve data accuracy by reducing overfitting. In this post, I walk through how to manipulate images using only numpy!
 
 ---
 
