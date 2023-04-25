@@ -11,7 +11,7 @@ Manipulating images can be an essential task in data science as it allows for da
 
 First thing to do is import the necessary packages:
 
-```ruby
+```python
 import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt
@@ -21,7 +21,7 @@ import matplotlib.pyplot as plt
 
 After loading these packages, let's load in our image:
 
-```ruby
+```python
 camaro = io.imread('camaro.jpg')
 print(camaro)
 
@@ -78,7 +78,7 @@ print(camaro)
 
 Printing our `camaro` variable shows the `numpy` array of values for the image. The numbers in these arrays range from 0-255, which represent the intensity of the color. It's important to note the *shape*, or dimensions, of this array:
 
-```ruby
+```python
 camaro.shape
 >>> (1200, 1600, 3)
 ```
@@ -87,7 +87,7 @@ We're working with an image that's 1200 px in height and 1600 px in width. The `
 
 Let's see what image we're working with:
 
-```ruby
+```python
 plt.imshow(camaro)
 plt.show()
 ```
@@ -96,13 +96,13 @@ plt.show()
 
 We've loaded our image and displayed it using `matplotlib`! Let's save this file:
 
-```ruby
+```python
 io.imsave('camaro_plt.jpg', camaro)
 ```
 
 This code can be used to save any file throughout this walk-through. Alright, let's see if we can *crop* this image to just the camaro:
 
-```ruby
+```python
 cropped = camaro[350:1100, 200:1400, :]
 plt.imshow(cropped)
 plt.show()
@@ -114,7 +114,7 @@ Nice! Using `numpy` slicing, we've selected the values in the arrays to just sho
 
 Next, let's flip the image. First, *vertically*:
 
-```ruby
+```python
 vertical_flip = camaro[::-1, :, :]
 plt.imshow(vertical_flip)
 plt.show()
@@ -124,7 +124,7 @@ plt.show()
 
 Very cool! We've used `camaro[::-1, :, :]` to *flip* all values in our first array be selecting the values in reverse order. If we want to flip it *horizontally*:
 
-```ruby
+```python
 horizontal_flip = camaro[:, ::-1, :]
 plt.imshow(horizontal_flip)
 plt.show()
@@ -134,20 +134,20 @@ plt.show()
 
 Well done! Now, remember how those three color channels? Let's have some fun with that. First, lets grab just the *red* color channel. To do this, we need to zero out the other color channels. If we only cropped out the other channels (selected the *red* channel only), then our image wouldn't render as red. To avoid this, we'll create an array of zeros with the same shape as our `camaro` array:
 
-```ruby
+```python
 red = np.zeros(camaro.shape, dtype='uint8')
 ```
 
 Then we'll set the first array of our `red` array equal to the values of the first array in our `camaro` array:
 select the first group of arrays
 
-```ruby
+```python
 red[:, :, 0] = camaro[:, :, 0]
 ```
 
 Let's see how it looks:
 
-```ruby
+```python
 plt.imshow(red)
 plt.show()
 ```
@@ -156,7 +156,7 @@ plt.show()
 
 We can also do this for blue and green:
 
-```ruby
+```python
 green = np.zeros(camaro.shape, dtype='uint8')
 green[:, :, 1] = camaro[:, :, 1]
 
@@ -166,7 +166,7 @@ blue[:, :, 2] = camaro[:, :, 2]
 
 Finally, let's put these together by stacking the arrays:
 
-```ruby
+```python
 camaro_rainbow = np.vstack((red, green, blue))
 plt.imshow(camaro_rainbow)
 plt.show()
