@@ -69,9 +69,9 @@ However, the Chi-Square Test gives us the following statistics:
 * p-value: **0.16**
 * Critical Value (for Acceptance Criteria of 0.05): **3.84**
 
-Based on these statistics, we retain the null hypothesis and conclude that there is no relationship between mailer type and signup rate.
+Based on these statistics, we retain the **Null Hypothesis** and conclude that there is no relationship between mailer type and signup rate.
 
-In other words - while we saw that the higher cost "Mailer 2" had a higher signup rate (37.8%) than the lower cost "Mailer 1" (32.8%), it appears that this difference is not significant at our *Acceptance Criteria* of 0.05.
+In other words - while we saw that the higher cost "Mailer 2" had a higher signup rate (37.8%) than the lower cost "Mailer 1" (32.8%), it appears that this difference is not significant at our **Acceptance Criteria** of 0.05.
 
 Without running this **Hypothesis Test**, the client may have concluded they should always look to go with higher cost mailers. From what we've seen in this test, that may not be a great decision: it would result in them spending more, but not *necessarily* gaining any extra revenue as a result.
 
@@ -193,11 +193,10 @@ A sample of this data (the first 10 rows) can be seen below:
 
 <br>
 In this DataFrame we have:
-
 * customer_id
 * campaign name
-* mailer_type (either Mailer1 or Mailer2)
-* signup_flag (either 1 or 0)
+* mailer_type (either `Mailer1` or `Mailer2`)
+* signup_flag (either `1` or `0`)
 
 ___
 
