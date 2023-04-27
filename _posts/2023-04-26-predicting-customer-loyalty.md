@@ -406,7 +406,7 @@ y_pred = regressor.predict(X_test)
 <br>
 ##### Calculate R-Squared
 
-**R-Squared** is a metric that shows the percentage of variance in our output variable *y* that is being explained by our input variable(s) *x*. It's value ranges between 0 and 1, with a higher value showing a higher level of explained variance. Another way of explaining this would be to say that if we had an **R-Squared** score of 0.8, it would suggest that 80% of the variation of our output variable is being explained by our input variables and that something else, or some other variables, must account for the other 20%.
+**R-Squared** is a metric that shows the percentage of variance in our output variable *y*  that is being explained by our input variable(s) *x*. It's value ranges between 0 and 1, with a higher value showing a higher level of explained variance. Another way of explaining this would be to say that if we had an **R-Squared** score of 0.8, it would suggest that 80% of the variation of our output variable is being explained by our input variables and that something else, or some other variables, must account for the other 20%.
 
 To calculate **R-Squared**, we use the following code where we pass in our *predicted* outputs for the test set (`y_pred`), as well as the *actual* outputs for the test set (`y_test`):
 
@@ -673,7 +673,7 @@ print(adjusted_r_squared)
 The resulting **Adjusted R-Squared** score from this is **0.887**, which, as expected, is slightly lower than the score we got for **R-Squared** on it's own.
 
 <br>
-### Decision Tree Regularisation <a name="regtree-model-regularisation"></a>
+### Decision Tree Regularization <a name="regtree-model-regularization"></a>
 
 Decision Tree's can be prone to over-fitting. In other words, without any limits on their splitting, they will end up learning the training data perfectly. We would much prefer our model to have a more *generalized* set of rules, as this will be more robust and reliable when making predictions on *new* data.
 
@@ -721,7 +721,7 @@ The code gives us the below plot which visualizes the results:
 From the plot we can see that the *maximum* classification accuracy on the test set is found when applying a *max_depth* value of 7. However, we lose very little accuracy back to a value of 4 and this would result in a simpler model that generalizes even better on new data. We make the executive decision to re-train our **Decision Tree** with a maximum depth of 4.
 
 <br>
-### Visualise Our Decision Tree <a name="regtree-visualise"></a>
+### Visualize Our Decision Tree <a name="regtree-visualize"></a>
 
 To see the decisions that have been made in the re-fitted tree, we can use the `plot_tree` functionality that we imported from scikit-learn. To do this, we use the below code:
 
