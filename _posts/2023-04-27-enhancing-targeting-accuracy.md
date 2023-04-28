@@ -22,7 +22,7 @@ Our client, a grocery retailer, wants to utilize Machine Learning to reduce mail
 - [06. KNN](#knn-title)
 - [07. Modeling Summary](#modeling-summary)
 - [08. Application](#modeling-application)
-- [09. Growth & Next Steps](#growth-next-steps)
+- [09. Growth and Next Steps](#growth-next-steps)
 
 ___
 
