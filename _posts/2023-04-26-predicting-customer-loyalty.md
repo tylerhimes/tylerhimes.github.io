@@ -22,7 +22,7 @@ Our client, a grocery retailer, hired a market research consultancy to append ma
 - [05. Random Forest](#rf-title)
 - [06. Modeling Summary](#modeling-summary)
 - [07. Predicting Missing Loyalty Scores](#modeling-predictions)
-- [08. Growth & Next Steps](#growth-next-steps)
+- [08. Growth and Next Steps](#growth-next-steps)
 
 ___
 
@@ -1075,7 +1075,7 @@ Just like that, we have made our `loyalty_score` predictions for these missing c
 
 ___
 <br>
-# GROWTH & NEXT STEPS <a name="growth-next-steps"></a>
+# GROWTH AND NEXT STEPS <a name="growth-next-steps"></a>
 
 While predictive accuracy was relatively high, other modeling approaches could be tested. Those somewhat similar to **Random Forest**, for example **XGBoost** and **LightGBM**, would especially be useful to see if even more accuracy could be gained.
 
