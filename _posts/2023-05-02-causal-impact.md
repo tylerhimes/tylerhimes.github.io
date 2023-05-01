@@ -5,9 +5,9 @@ image: "/posts/causal-impact-title-img.png"
 tags: [Causal Impact Analysis, Python]
 ---
 
-In this project we use Causal Impact Analysis to analyse & understand the sales uplift of customers that joined the new "Delivery Club" campaign!.
+In this project we use Causal Impact Analysis to analyze and understand the sales uplift of customers that joined the new "Delivery Club" campaign!
 
-# Table of contents
+# TABLE OF CONTENTS
 
 - [00. Project Overview](#overview-main)
     - [Context](#overview-context)
@@ -17,20 +17,20 @@ In this project we use Causal Impact Analysis to analyse & understand the sales 
 - [01. Causal Impact Analysis Overview](#causal-impact-overview)
 - [02. Data Overview & Preparation](#causal-impact-data-prep)
 - [03. Applying Causal Impact Analysis](#causal-impact-fit)
-- [04. Analysing The Results](#causal-impact-results)
+- [04. Analyzing The Results](#causal-impact-results)
 - [05. Growth & Next Steps](#growth-next-steps)
 
 ___
 
-# Project Overview  <a name="overview-main"></a>
+# PROJECT OVERVIEW <a name="overview-main"></a>
 
 ### Context <a name="overview-context"></a>
 
-Earlier in the year, our client, a grocery retailer, ran a campaign to promote their new "Delivery Club" - an initiative that costs a customer $100 per year for membership, but offers free grocery deliveries rather than the normal cost of $10 per delivery.
+Earlier in the year, our client, a grocery retailer, ran a campaign to promote their new "Delivery Club" - an initiative that costs a customer $100 per year for membership but offers free grocery deliveries rather than the normal cost of $10 per delivery.
 
-They want to understand if customers who did join the club have increased their spend in the three months following.  The hypothesis is that, if customers are not paying for deliveries, they will be tempted to shop more frequently, and hopefully purchase more each time.
+They want to understand if customers who did join the club have increased their spend in the three months following. The hypothesis is that if customers are not paying for deliveries, they will be tempted to shop more frequently and hopefully purchase more each time.
 
-The aim of this work is to understand and quantify the uplift in sales for customers that joined the club, over and above what they *would* have spent had the club not come into existence!
+The aim of this work is to understand and quantify the uplift in sales for customers that joined the club over and above what they *would* have spent had the club not come into existence.
 
 <br>
 <br>
