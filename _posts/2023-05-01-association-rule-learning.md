@@ -7,7 +7,7 @@ tags: [Association Rule Learning, Python]
 
 In this project we use Association Rule Learning to analyze the transactional relationships and dependencies between products in the alcohol section of a grocery store.
 
-# Table of contents
+# TABLE OF CONTENTS
 
 - [00. Project Overview](#overview-main)
     - [Context](#overview-context)
