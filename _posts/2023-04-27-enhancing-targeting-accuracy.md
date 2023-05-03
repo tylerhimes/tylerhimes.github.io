@@ -91,6 +91,7 @@ Based upon this information, the chosen model is the **Random Forest** as it was
 * 
 <br>
 <br>
+
 ### Growth/Next Steps <a name="overview-growth"></a>
 
 While predictive accuracy was relatively high, other modeling approaches could be tested. Models somewhat similar to **Random Forest**, for example **XGBoost** and **LightGBM**, would be particularly valuable to see if even more accuracy could be gained.
