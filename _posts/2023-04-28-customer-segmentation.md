@@ -85,7 +85,6 @@ In the code below, we:
 * Pivot the data to get it into the right format for clustering
 * Change the values from raw dollars into a percentage of spend for each customer (to ensure each customer is comparable)
 
-<br>
 ```python
 # Import required Python packages
 from sklearn.cluster import KMeans
@@ -124,7 +123,6 @@ data_for_clustering = transaction_summary_pivot.drop(["Total"], axis = 1)
 <br>
 
 After the data pre-processing using Pandas, we have a dataset for clustering that looks like the below sample:
-<br>
 <br>
 
 | **customer_id** | **dairy** | **fruit** | **meat** | **vegetables** |
@@ -257,7 +255,6 @@ Based upon the shape of the above plot, there does appear to be an "elbow" at k 
 
 The below code will instantiate our **k-means** object using a value for k equal to 3. We then fit this object to our scaled dataset to separate our data into three distinct segments or clusters.
 
-<br>
 ```python
 # Instantiate k-means object
 kmeans = KMeans(n_clusters=3, random_state=42)
@@ -273,7 +270,6 @@ With the **k-means** algorithm fitted to our data, we can now append those clust
 
 In the code below we tag this cluster number onto our original dataframe.
 
-<br>
 ```python
 # Add cluster labels to original data
 data_for_clustering["cluster"] = kmeans.labels_
@@ -289,7 +285,6 @@ Once we have our data separated into distinct clusters, our client needs to unde
 
 In the below code we first assess the number of customers that fall into each cluster:
 
-<br>
 ```python
 # Check cluster sizes
 data_for_clustering["cluster"].value_counts(normalize=True)
@@ -308,14 +303,13 @@ Based on these results, it does appear we do have a skew toward *Cluster 0* with
 
 To understand what these different behaviors or characteristics are, we can look to analyze the attributes of each cluster in terms of the variables we fed into the **k-means** algorithm.
 
-<br>
 ```python
 # Profile clusters (mean % sales for each product area)
 cluster_summary = data_for_clustering.groupby("cluster")[["Dairy", "Fruit", "Meat", "Vegetables"]].mean().reset_index()
-
 ```
+
 <br>
-That code results in the following table...
+That code results in the following table:
 
 | **Cluster** | **Dairy** | **Fruit** | **Meat** | **Vegetables** |
 |---|---|---|---|---|
