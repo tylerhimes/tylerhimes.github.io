@@ -151,7 +151,6 @@ In the code below, we:
 * Import the required data from the `campaign_data` table
 * Exclude customers in the control group, giving us a dataset with "Mailer 1" and "Mailer 2" customers only
 
-<br>
 ```python
 # Install the required Python libraries
 import pandas as pd
@@ -163,9 +162,9 @@ campaign_data = ...
 # Remove customers who were in the control group
 campaign_data = campaign_data.loc[campaign_data["mailer_type"] != "Control"]
 ```
+
 <br>
 A sample of this data (the first 10 rows) can be seen below:
-<br>
 <br>
 
 | **customer_id** | **campaign_name** | **mailer_type** | **signup_flag** |
@@ -201,7 +200,6 @@ The very first thing we need to do in any form of **Hypothesis Test** is state o
 
 In the code below, we code these explcitly and clearly so we can utilize them later to explain the results. We specify the common **Acceptance Criteria** value of 0.05.
 
-<br>
 ```python
 # Specify hypotheses & acceptance criteria for test
 NULL_HYPOTHESIS = "There is no relationship between mailer type and signup rate.  They are independent."
@@ -225,7 +223,6 @@ The below code:
 * Calculates the **Critical Value** based upon our **Acceptance Criteria** and the **Degrees Of Freedom**
 * Prints out the **Critical Value**
 
-<br>
 ```python
 # Aggregate our data to get observed values
 observed_values = pd.crosstab(campaign_data["mailer_type"], campaign_data["signup_flag"]).values
@@ -248,6 +245,7 @@ critical_value = chi2.ppf(1 - ACCEPTANCE_CRITERIA, dof)
 print(critical_value)
 >> 3.84
 ```
+
 <br>
 Based on our observed values, we can give this all some context with the sign-up rate of each group. We get:
 * Mailer 1 (Low Cost): **32.8%** signup rate
@@ -270,7 +268,6 @@ We can make the same conclusion based upon our resulting **Chi-Square statistic*
 
 To make this script more dynamic, we can create code to automatically interpret the results and explain the outcome to us:
 
-<br>
 ```python
 # Print the results (based upon p-value)
 if p_value <= ACCEPTANCE_CRITERIA:
@@ -288,6 +285,7 @@ else:
     
 >> As our chi-square statistic of 1.9414 is lower than our critical value of 3.841458820694124 - we retain the null hypothesis and conclude that: There is no relationship between mailer type and signup rate.  They are independent.
 ```
+
 <br>
 As we can see from the outputs of these print statements, we do indeed retain the **Null Hypothesis**. We could not find enough evidence that the sign-up rates for "Mailer 1" and "Mailer 2" were different - and thus conclude that there was no significant difference!
 
