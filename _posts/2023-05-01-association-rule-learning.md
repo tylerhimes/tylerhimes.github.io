@@ -85,7 +85,6 @@ Our initial dataset contains 3,500 transactions - each of which shows the alcoho
 
 In the code below, we import Pandas, as well as the **Apriori** algorithm from the apyori library, and we bring the raw data into Python.
 
-<br>
 ```python
 # Import required Python packages
 import pandas as pd
@@ -97,7 +96,6 @@ alcohol_transactions = pd.read_csv("data/sample_data_apriori.csv")
 <br>
 
 A sample of this data (the first 10 transactions) can be seen below:
-<br>
 <br>
 
 | **transaction_id** | **product1** | **product2** | **product3** | **product4** | **product5** | **…** |
@@ -201,7 +199,6 @@ In the code below, we:
 * Iterate over the DataFrame, appending each transaction to a list and appending those to a master list
 * Print out the first 10 lists from the master list
 
-<br>
 ```python
 # Drop ID column
 alcohol_transactions.drop("transaction_id", axis=1, inplace=True)
@@ -240,7 +237,6 @@ In the code below we apply the **Apriori** algorithm from the apyori library. Th
 * A minimum **Lift** of 3 to ensure we're only focusing on product sets with strong relationships
 * A minimum and maximum length of 2 - meaning we're only focusing on product *pairs* rather than larger sets
 
-<br>
 ```python
 # Apply the apriori algorthm and specify required parameters
 apriori_rules = apriori(transactions_list,
@@ -264,7 +260,6 @@ The output from the algorithm is in the form of a generator. We covert this to a
 
 Based on the parameters we set when applying the algorithm, we get 132 product pairs. We print out the first element from the list to see what the output looks like and while this contains all the key information we need, to make it easier to analyze (and more accessible and useable for stakeholders), in the next code snippet we extract the key elements and use list comprehension to re-work this data to exist as a Pandas DataFrame.
 
-<br>
 ```python
 # Extract each piece of information
 product1 = [list(rule[2][0][0])[0] for rule in apriori_rules]
@@ -282,7 +277,6 @@ apriori_rules_df = pd.DataFrame({"product1" : product1,
 ```
 <br>
 A sample of this data (the first 5 product pairs - not in any order) can be seen below:
-<br>
 <br>
 
 | **product1** | **product2** | **support** | **confidence** | **lift** |
@@ -306,7 +300,6 @@ ___
 
 Now that we have our data in a useable format, let's look at the product pairs with the *strongest* relationships. We can do this by sorting our **Lift** column in descending order:
 
-<br>
 ```python
 # Sort pairs by descending Lift
 apriori_rules_df.sort_values(by="lift", ascending=False, inplace=True)
@@ -314,7 +307,6 @@ apriori_rules_df.sort_values(by="lift", ascending=False, inplace=True)
 
 <br>
 In the table below, we can see the ten highest product relationships based on **Lift**:
-<br>
 <br>
 
 | **product1** | **product2** | **support** | **confidence** | **lift** |
@@ -345,7 +337,6 @@ With the data now stored as a DataFrame, we will also go back to the client with
 
 An example of how this might work would be to test a hypothesis around New Zealand wines: the code below uses a string function to pull back all rows in the DataFrame where `product1` contains the words "New Zealand".
 
-<br>
 ```python
 # Search based upon text
 apriori_rules_df[apriori_rules_df["product1"].str.contains("New Zealand")]
@@ -353,7 +344,6 @@ apriori_rules_df[apriori_rules_df["product1"].str.contains("New Zealand")]
 
 <br>
 The results of this search, in order of descending **Lift**, are as follows:
-<br>
 <br>
 
 | **product1** | **product2** | **support** | **confidence** | **lift** |
