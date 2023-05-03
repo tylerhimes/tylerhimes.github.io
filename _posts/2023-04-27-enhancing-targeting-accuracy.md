@@ -108,7 +108,6 @@ The key variables hypothesized to predict this will come from the client databas
 
 We aggregated customer data from the 3 months prior to the last campaign. After this data pre-processing in Python, we have a dataset for modeling that contains the following fields...
 <br>
-<br>
 
 | **Variable Name** | **Variable Type** | **Description** |
 |---|---|---|
@@ -151,7 +150,6 @@ Since we saved our modeling data as a pickle file, we import it.  Then we remove
 
 We also investigate the class balance of our dependent variable, which is important when assessing classification accuracy.
 
-<br>
 ```python
 # Import required packages
 import pandas as pd
@@ -177,6 +175,7 @@ data_for_model = shuffle(data_for_model, random_state = 42)
 # Assess class balance of dependent variable
 data_for_model["signup_flag"].value_counts(normalize = True)
 ```
+
 <br>
 From the last step in the above code, we see that **69% of customers did not sign up and 31% did**. This tells us that while the data isn't perfectly balanced at 50:50, it isn't *too* imbalanced either. Because of this imperfect balance, though, we make sure to not rely on classification **accuracy** alone when assessing results - also analyzing **precision**, **recall**, and **f1-score**.
 
@@ -194,7 +193,6 @@ For **Logistic Regression**, we have certain data preprocessing steps that need 
 
 The number of missing values in the data was extremely low, so instead of applying any imputation (i.e. mean, most common value) we will just remove those rows:
 
-<br>
 ```python
 # Remove rows where values are missing
 data_for_model.isna().sum()
@@ -207,7 +205,6 @@ data_for_model.dropna(how = "any", inplace = True)
 The ability for a **Logistic Regression** model to generalize well across *all* data can be hampered if there are outliers present. There is no right or wrong way to deal with outliers, but it is always something worth very careful consideration - just because a value is high or low, does not necessarily mean it should not be there!
 
 In this code section, we use `.describe()` from Pandas to investigate the spread of values for each of our predictors. The results of this can be seen in the table below:
-
 <br>
 
 | **metric** | **distance_from_store** | **credit_score** | **total_sales** | **total_items** | **transaction_count** | **product_area_count** | **average_basket_value** |
@@ -225,7 +222,6 @@ Based on this investigation, we see some *max* column values for several variabl
 
 Because of this, we apply some outlier removal in order to facilitate generalization across the full dataset. We do this using the "boxplot approach", where we remove any rows where the values within those columns are outside of the interquartile range multiplied by 2.
 
-<br>
 ```python
 outlier_investigation = data_for_model.describe()
 outlier_columns = ["distance_from_store", "total_sales", "total_items"]
@@ -252,7 +248,6 @@ In the next code block we do two things, we first split our data into an `X` obj
 
 Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training. In this case, we have allocated 80% of the data for training, and the remaining 20% for validation. We make sure to add in the `stratify` parameter to ensure that both our training and test sets have the same proportion of customers who did and did not sign up for the *delivery club*, meaning we can be more confident in our assessment of predictive performance.
 
-<br>
 ```python
 # Split data into X and y objects for modeling
 X = data_for_model.drop(["signup_flag"], axis = 1)
@@ -279,7 +274,6 @@ In the code below, we also make sure to apply `fit_transform` to the training se
 
 For ease, after we have applied **One Hot Encoding**, we turn our training and test objects back into Pandas DataFrames, with the column names applied:
 
-<br>
 ```python
 # List of categorical variables that need encoding
 categorical_vars = ["gender"]
@@ -316,7 +310,6 @@ There are many, many ways to apply **Feature Selection**. These range from simpl
 
 For our task we applied a variation of **Recursive Feature Elimination** called *Recursive Feature Elimination With Cross Validation (RFECV)* where we split the data into many "chunks" and iteratively train and validate models on each "chunk" seperately. This means that each time we assess a different model with different variables included, or eliminated, the algorithm also knows how accurate each of those models was. From the suite of model scenarios that are created, the algorithm can determine which provided the best accuracy and thus infer the best set of input variables to use!
 
-<br>
 ```python
 # Instantiate RFECV & the model type to be utilized
 clf = LogisticRegression(random_state = 42, max_iter = 1000)
@@ -337,7 +330,6 @@ X_test = X_test.loc[:, feature_selector.get_support()]
 <br>
 The below code then produces a plot that visualizes the cross-validated classification accuracy with each potential number of features:
 
-<br>
 ```python
 plt.style.use('seaborn-poster')
 plt.plot(range(1, len(fit.cv_results_['mean_test_score']) + 1), fit.cv_results_['mean_test_score'], marker = "o")
@@ -359,7 +351,6 @@ This creates the below plot which shows us that the highest cross-validated clas
 
 Instantiating and training our **Logistic Regression** model is done using the below code. We use the `random_state` parameter to ensure reproducible results, meaning any refinements can be compared to past results. We also specify `max_iter = 1000` to allow the solver more attempts at finding an optimal regression line as the default value of 100 was not enough.
 
-<br>
 ```python
 # Instantiate model object
 clf = LogisticRegression(random_state = 42, max_iter = 1000)
@@ -377,7 +368,6 @@ To assess how well our model is predicting on new data, we use the trained model
 
 In the code below, we create one object to hold the binary 1/0 predictions and another to hold the actual prediction probabilities for the positive class.
 
-<br>
 ```python
 # Predict on the test set
 y_pred_class = clf.predict(X_test)
@@ -391,7 +381,6 @@ A **Confusion Matrix** provides us a visual way to understand how our prediction
 
 The below code creates the **Confusion Matrix** using the `confusion_matrix` functionality from within scikit-learn and then plots it using matplotlib:
 
-<br>
 ```python
 # Create the confusion matrix
 conf_matrix = confusion_matrix(y_test, y_pred_class)
@@ -456,7 +445,6 @@ Using all of these metrics in combination gives a really good overview of the pe
 <br>
 In the code below, we utilize in-built functionality from scikit-learn to calculate these four metrics.
 
-<br>
 ```python
 # Classification accuracy
 accuracy_score(y_test, y_pred_class)
@@ -470,6 +458,7 @@ recall_score(y_test, y_pred_class)
 # F1-Score
 f1_score(y_test, y_pred_class)
 ```
+
 <br>
 Running this code gives us:
 * Classification Accuracy = **0.866** meaning we correctly predicted the class of 86.6% test set observations
@@ -486,7 +475,6 @@ By default, most pre-built classification models and algorithms will just use a 
 
 Here, we will test many potential classification thresholds, plot the **precision**, **recall**, and **f1-score**, and find an optimal solution!
 
-<br>
 ```python
 # Set up the list of thresholds to loop through
 thresholds = np.arange(0, 1, 0.01)
@@ -517,7 +505,6 @@ max_f1_idx = f1_scores.index(max_f1)
 
 Now that we have run this, we can use the below code to plot the results!
 
-<br>
 ```python
 # Plot the results
 plt.style.use("seaborn-poster")
@@ -558,7 +545,6 @@ Since we saved our modeling data as a pickle file, we import it. We remove the `
 
 Just like we did for **Logistic Regression**, our code also investigates the class balance of our dependent variable.
 
-<br>
 ```python
 # Import required packages
 import pandas as pd
@@ -596,7 +582,6 @@ While **Logistic Regression** is susceptible to the effects of outliers and high
 
 The number of missing values in the data was extremely low, so instead of applying any imputation (i.e. mean, most common value) we will just remove those rows:
 
-<br>
 ```python
 # Remove rows where values are missing
 data_for_model.isna().sum()
@@ -610,7 +595,6 @@ In exactly the same way we did for **Logistic Regression**, in the next code blo
 
 Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training.  In this case, we have allocated 80% of the data for training and the remaining 20% for validation. Again, we add the `stratify` parameter so both our training and test sets have the same proportion of customers who did and did not sign up for the *delivery club* - meaning we can be more confident in our assessment of predictive performance.
 
-<br>
 ```python
 # Split data into X and y objects for modeling
 X = data_for_model.drop(["signup_flag"], axis = 1)
@@ -629,7 +613,6 @@ Just as the **Logisitc Regression** algorithm, the **Decision Tree** cannot deal
 
 As `gender` doesn't have any explicit *order* to it - in other words, Male isn't higher or lower than Female and vice versa - we again apply **One Hot Encoding** to the categorical column.
 
-<br>
 ```python
 # List of categorical variables that need encoding
 categorical_vars = ["gender"]
@@ -659,7 +642,6 @@ X_test.drop(categorical_vars, axis = 1, inplace = True)
 
 Instantiating and training our **Decision Tree** model is done using the below code. We use the `random_state` parameter to get reproducible results and help us understand any improvements in performance with changes to model hyperparameters.
 
-<br>
 ```python
 # Instantiate model object
 clf = DecisionTreeClassifier(random_state = 42, max_depth = 5)
@@ -677,7 +659,6 @@ Just like we did with **Logistic Regression**, to assess how well our model is p
 
 In the code below, we create one object to hold the binary 1/0 predictions and another to hold the actual prediction probabilities for the positive class.
 
-<br>
 ```python
 # Predict on the test set
 y_pred_class = clf.predict(X_test)
@@ -691,7 +672,6 @@ As we discussed in the above section applying **Logistic Regression**, a **confu
 
 The below code creates the **confusion matrix** using the `confusion_matrix` functionality from within scikit-learn and then plots it using matplotlib.
 
-<br>
 ```python
 # Create the confusion matrix
 conf_matrix = confusion_matrix(y_test, y_pred_class)
@@ -725,7 +705,6 @@ For details on these performance metrics, please see the above section on **Logi
 
 In the code below, we utilize in-built functionality from scikit-learn to calculate these four metrics.
 
-<br>
 ```python
 # Classification accuracy
 accuracy_score(y_test, y_pred_class)
@@ -739,6 +718,7 @@ recall_score(y_test, y_pred_class)
 # F1-Score
 f1_score(y_test, y_pred_class)
 ```
+
 <br>
 Running this code gives us:
 * Classification Accuracy = **0.929** meaning we correctly predicted the class of 92.9% of test set observations
@@ -753,7 +733,6 @@ These are all higher than what we saw when applying **Logistic Regression**, eve
 
 To see the decisions that have been made in the tree, we can use the `plot_tree` functionality imported from scikit-learn. To do this, we use the below code:
 
-<br>
 ```python
 # Plot the nodes of the decision tree
 plt.figure(figsize=(25,15))
@@ -763,6 +742,7 @@ tree = plot_tree(clf,
                  rounded = True,
                  fontsize = 16)
 ```
+
 <br>
 That code gives us the below plot:
 
@@ -783,7 +763,6 @@ One effective method of avoiding over-fitting is to apply a `max_depth` to the *
 
 We initially trained our model with a placeholder depth of 5, but unfortunately we don't necessarily know the *optimal* number for this. Below we will loop over a variety of values and assess which gives us the best predictive performance!
 
-<br>
 ```python
 # FINDING THE BEST max_depth
 
@@ -813,6 +792,7 @@ plt.ylabel("Accuracy (F1 Score)")
 plt.tight_layout()
 plt.show()
 ```
+
 <br>
 That code gives us the below plot which visualizes the results!
 
@@ -839,7 +819,6 @@ Again, since we saved our modeling data as a pickle file, we import it. We remov
 
 As this is the exact same process we ran for both **Logistic Regression** and the **Decision Tree**, our code investigates the class balance of our dependent variable.
 
-<br>
 ```python
 # Import required packages
 import pandas as pd
@@ -865,6 +844,7 @@ data_for_model = shuffle(data_for_model, random_state = 42)
 # Assess class balance of dependent variable
 data_for_model["signup_flag"].value_counts(normalize = True)
 ```
+
 <br>
 ### Data Preprocessing <a name="rf-preprocessing"></a>
 
@@ -877,7 +857,6 @@ While **Linear Regression** is susceptible to the effects of outliers and highly
 
 The number of missing values in the data was extremely low. Instead of applying any imputation (i.e. mean, most common value) we will just remove those rows.  Again, this is exactly the same process we ran for **Logistic Regression** and the **Decision Tree**.
 
-<br>
 ```python
 # Remove rows where values are missing
 data_for_model.isna().sum()
@@ -891,7 +870,6 @@ In exactly the same way we did for both **Logistic Regression** and the **Decisi
 
 Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training. In this case, we have allocated 80% of the data for training and the remaining 20% for validation. Again, we make sure to add in the `stratify` parameter to ensure that both our training and test sets have the same proportion of customers who did and did not sign up for the delivery club - meaning we can be more confident in our assessment of predictive performance.
 
-<br>
 ```python
 # Split data into X and y objects for modeling
 X = data_for_model.drop(["signup_flag"], axis = 1)
@@ -910,7 +888,6 @@ Just like the **Logistic Regression** algorithm, **Random Forests** cannot deal 
 
 As `gender` doesn't have any explicit *order* to it - in other words, Male isn't higher or lower than Female and vice versa - we again apply **One Hot Encoding** to the categorical column.
 
-<br>
 ```python
 # List of categorical variables that need encoding
 categorical_vars = ["gender"]
@@ -944,7 +921,6 @@ We also look to build more **Decision Trees** (500) in the **Random Forest** tha
 
 Lastly, since the default scikit-learn implementation of **Random Forests** does not limit the number of randomly selected variables offered up for splitting at each split point in each **Decision Tree**, we put this in place using the `max_features` parameter. This can always be refined later through testing or an approach such as **gridsearch**.
 
-<br>
 ```python
 # Instantiate model object
 clf = RandomForestClassifier(random_state = 42, n_estimators = 500, max_features = 5)
@@ -962,7 +938,6 @@ Just like we did with **Logistic Regression** and our **Decision Tree**, to asse
 
 In the code below, we create one object to hold the binary 1/0 predictions and another to hold the actual prediction probabilities for the positive class.
 
-<br>
 ```python
 # Predict on the test set
 y_pred_class = clf.predict(X_test)
@@ -974,7 +949,6 @@ y_pred_prob = clf.predict_proba(X_test)[:, 1]
 
 As we discussed in the above sections, a **Confusion Matrix** provides us a visual way to understand how our predictions match up against the actual values for those test set observations. The below code creates the **Confusion Matrix** using the `confusion_matrix` functionality from within scikit-learn and then plots it using matplotlib.
 
-<br>
 ```python
 # Create the confusion matrix
 conf_matrix = confusion_matrix(y_test, y_pred_class)
@@ -1008,7 +982,6 @@ For details on these performance metrics, please see the above section on **Logi
 
 In the code below, we utilize in-built functionality from scikit-learn to calculate these four metrics.
 
-<br>
 ```python
 # Classification accuracy
 accuracy_score(y_test, y_pred_class)
@@ -1022,6 +995,7 @@ recall_score(y_test, y_pred_class)
 # F1-Score
 f1_score(y_test, y_pred_class)
 ```
+
 <br>
 Running this code gives us:
 
@@ -1047,7 +1021,6 @@ The other approach, called **Permutation Importance**, cleverly uses some data t
 
 Let's put them both in place, and plot the results...
 
-<br>
 ```python
 # Calculate feature importance
 feature_importance = pd.DataFrame(clf.feature_importances_)
@@ -1078,6 +1051,7 @@ plt.xlabel("Permutation Importance")
 plt.tight_layout()
 plt.show()
 ```
+
 <br>
 The code gives us the below plots - the first for **Feature Importance** and the second for **Permutation Importance**:
 
@@ -1112,7 +1086,6 @@ Again, since we saved our modeling data as a pickle file, we import it. We remov
 
 As with the other approaches, we also investigate the class balance of our dependent variable - which is important when assessing classification accuracy.
 
-<br>
 ```python
 # Import required packages
 import pandas as pd
@@ -1138,6 +1111,7 @@ data_for_model = shuffle(data_for_model, random_state = 42)
 # Assess class balance of dependent variable
 data_for_model["signup_flag"].value_counts(normalize = True)
 ```
+
 <br>
 From the last step in the above code, we see that **69% of customers did not sign up and 31% did**. This tells us that while the data isn't perfectly balanced at 50:50, it isn't *too* imbalanced either. Because of this, we make sure to not rely on classification **accuracy** alone when assessing results - we also analyze **precision**, **recall**, and **f1-score**.
 
@@ -1156,7 +1130,6 @@ For KNN, as it is a distance based algorithm, we have certain data preprocessing
 
 The number of missing values in the data was extremely low, so instead of applying any imputation (i.e. mean, most common value) we will just remove those rows:
 
-<br>
 ```python
 # Remove rows where values are missing
 data_for_model.isna().sum()
@@ -1169,7 +1142,6 @@ data_for_model.dropna(how = "any", inplace = True)
 As KNN is a distance based algorithm, you could argue that if a data point is a long way away, then it will simply never be selected as one of the neighbors - and this is true - but outliers can still cause problems. The main issue we face is when we scale our input variables, a very important step for a distance based algorithm. We don't want any variables to be "bunched up" due to a single outlier value as this will make it hard to compare their values to the other input variables.  We should always investigate outliers rigorously - in this case we will simply remove them.
 
 In this code section, just like we saw when applying **Logistic Regression**, we use `.describe()` from Pandas to investigate the spread of values for each of our predictors. The results of this can be seen in the table below.
-
 <br>
 
 | **metric** | **distance_from_store** | **credit_score** | **total_sales** | **total_items** | **transaction_count** | **product_area_count** | **average_basket_value** |
@@ -1187,7 +1159,6 @@ Again, based on this investigation, we see some *max* column values for several 
 
 Because of this, we apply some outlier removal in order to facilitate generalization across the full dataset. We do this using the "boxplot approach" where we remove any rows where the values within those columns are outside of the interquartile range multiplied by 2.
 
-<br>
 ```python
 outlier_investigation = data_for_model.describe()
 outlier_columns = ["distance_from_store", "total_sales", "total_items"]
@@ -1214,7 +1185,6 @@ In exactly the same way we've done for the other three models, in the next code 
 
 Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training. In this case, we have allocated 80% of the data for training and the remaining 20% for validation. Again, we make sure to add in the `stratify` parameter to ensure that both our training and test sets have the same proportion of customers who did and did not sign up for the delivery club - meaning we can be more confident in our assessment of predictive performance.
 
-<br>
 ```python
 # Split data into X and y objects for modeling
 X = data_for_model.drop(["signup_flag"], axis = 1)
@@ -1239,7 +1209,6 @@ In the code, we also make sure to apply `fit_transform` to the training set but 
 
 For ease, after we have applied **One Hot Encoding** we turn our training and test objects back into Pandas Dataframes, with the column names applied.
 
-<br>
 ```python
 # List of categorical variables that need encoding
 categorical_vars = ["gender"]
@@ -1277,7 +1246,6 @@ The below code uses the `MinMaxScaler` functionality from scikit-learn to apply 
 
 In the code, we also make sure to apply `fit_transform` to the training set but only `transform` to the test set. The scaling logic will learn and apply the scaling "rules" from the training data but only apply them to the test data (or any other data we predict on in the future). This is important in order to avoid data leakage where the test set learns information about the training data and means we can’t fully trust model performance metrics!
 
-<br>
 ```python
 # Create scaler object
 scale_norm = MinMaxScaler()
@@ -1300,7 +1268,6 @@ Having a high number of input variables also means the algorithm has to process 
 
 For our task here we are again going to apply **Recursive Feature Elimination With Cross Validation (RFECV)** which is an approach that starts with all input variables and then iteratively removes those with the weakest relationships with the output variable. **RFECV** does this using **Cross Validation**, which splits the data into many "chunks" and iteratively trains and validates models on each "chunk" seperately. This means that each time we assess different models with different variables included or eliminated, the algorithm also knows how accurate each of those models was. From the suite of model scenarios that are created, the algorithm can determine which provided the best accuracy, and thus can infer the best set of input variables to use!
 
-<br>
 ```python
 # Instantiate RFECV & the model type to be utilized
 from sklearn.ensemble import RandomForestClassifier
@@ -1322,7 +1289,6 @@ X_test = X_test.loc[:, feature_selector.get_support()]
 <br>
 The below code then produces a plot that visualizes the cross-validated classification accuracy with each potential number of features:
 
-<br>
 ```python
 plt.style.use('seaborn-poster')
 plt.plot(range(1, len(fit.cv_results_['mean_test_score']) + 1), fit.cv_results_['mean_test_score'], marker = "o")
@@ -1348,7 +1314,6 @@ Instantiating and training our **KNN** model is done using the below code. At th
 * Will use a value for k of 5, or in other words it will base classifications based upon the 5 nearest neighbors
 * Will use *uniform* weighting, or in other words an equal weighting to all 5 neighbors regardless of distance
 
-<br>
 ```python
 # Instantiate model object
 clf = KNeighborsClassifier()
@@ -1366,7 +1331,6 @@ To assess how well our model is predicting on new data, we use the trained model
 
 In the code below we create one object to hold the binary 1/0 predictions and another to hold the actual prediction probabilities for the positive class (which is based upon the majority class within the k nearest neighbors).
 
-<br>
 ```python
 # Predict on the test set
 y_pred_class = clf.predict(X_test)
@@ -1380,7 +1344,6 @@ As we've seen with all models so far, our **Confusion Matrix** provides us a vis
 
 The below code creates the **Confusion Matrix** using the `confusion_matrix` functionality from within scikit-learn and then plots it using matplotlib.
 
-<br>
 ```python
 # Create the confusion matrix
 conf_matrix = confusion_matrix(y_test, y_pred_class)
@@ -1416,7 +1379,6 @@ For details on these performance metrics, please see the above section on **Logi
 
 In the code below, we utilize functionality from scikit-learn to calculate these four metrics.
 
-<br>
 ```python
 # Classification accuracy
 accuracy_score(y_test, y_pred_class)
@@ -1430,6 +1392,7 @@ recall_score(y_test, y_pred_class)
 # F1-Score
 f1_score(y_test, y_pred_class)
 ```
+
 <br>
 Running this code gives us:
 
@@ -1447,7 +1410,6 @@ By default, the **KNN** algorithm within scikit-learn will use `k = 5`, meaning 
 
 Here, we will test many potential values for k, plot the **precision**, **recall**, and **f1-score**, and find an optimal solution!
 
-<br>
 ```python
 # Set up range for search and empty list to append accuracy scores
 k_list = list(range(2, 25))
@@ -1475,6 +1437,7 @@ plt.ylabel("Accuracy (F1 Score)")
 plt.tight_layout()
 plt.show()
 ```
+
 <br>
 That code gives us the below plot - which visualizes the results.
 
@@ -1486,7 +1449,7 @@ In the plot, we can see that the *maximum* **f1-score** on the test set is found
 
 ___
 <br>
-# Modeling Summary <a name="modeling-summary"></a>
+# MODELING SUMMARY <a name="modeling-summary"></a>
 
 The goal for the project was to build a model that would accurately predict the customers that would sign up for the *delivery club*. This would allow for a much more targeted approach when running the next iteration of the campaign. A secondary goal was to understand what the drivers for this are, enabling the client to get closer to the customers that need or want this service and enhance their messaging.
 
