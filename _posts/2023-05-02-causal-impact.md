@@ -131,7 +131,6 @@ In the code below, we:
 * Maneuver the data specifically for the *pycausalimpact* algorithm
 * Give the groups some meaningful names to help with interpretation
 
-<br>
 ```python
 # Install the required python libraries
 from causalimpact import CausalImpact
@@ -166,7 +165,6 @@ causal_impact_df.columns = ["member", "non_member"]
 <br>
 A sample of this data (the first 5 days of data) can be seen below:
 <br>
-<br>
 
 | **transaction_date** | **member** | **non_member** |
 |---|---|---|
@@ -189,7 +187,6 @@ The algorithm will model the relationship between members and non-members in the
 
 The difference between this counterfactual and the actual data in the post-period will be our "causal impact".
 
-<br>
 ```python
 # Specify the pre & post periods
 pre_period = ["2020-04-01", "2020-06-30"]
@@ -211,7 +208,6 @@ ___
 
 The *pycausalimpact* library makes plotting the results extremely easy - all done with the single line of code below:
 
-<br>
 ```python
 # Plot the results
 ci.plot()
@@ -249,7 +245,6 @@ As we would expect based on the other two charts, there does appear to be a cumu
 
 The *pycausalimpact* library also makes interpreting the numbers very easy. We can get a clean results summary with the following line of code:
 
-<br>
 ```python
 # Results summary
 print(ci.summary())
@@ -281,7 +276,6 @@ In the columns on the right of the summary, we see the *cumulative* values for t
 
 What is amazing about the *pycausalimpact* library is that, with an extra parameter, we can actually get all of this information provided as a written output! If we put:
 
-<br>
 ```python
 # Results summary report
 print(ci.summary(output="report"))
