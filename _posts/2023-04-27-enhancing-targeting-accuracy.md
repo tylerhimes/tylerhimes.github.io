@@ -88,7 +88,6 @@ Based upon this information, the chosen model is the **Random Forest** as it was
 * Decision Tree = 0.885
 * KNN = 0.865
 * Logistic Regression = 0.734
-* 
 <br>
 <br>
 
