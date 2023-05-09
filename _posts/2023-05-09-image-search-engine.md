@@ -393,9 +393,11 @@ plt.show()
 The search image, and search results are below:
 
 **Search Image**
+<br>
 ![alt text](/img/posts/search-engine-search1.jpg "Search 1: Search Image")
 <br>
 **Search Results**
+<br>
 ![alt text](/img/posts/search-engine-search1-results.png "Search 1: Search Results")
 
 Very impressive results! From the 300 base-set images, these are the eight that have been deemed to be *most similar*!
@@ -404,9 +406,11 @@ Very impressive results! From the 300 base-set images, these are the eight that 
 Let's take a look at a second search image...
 
 **Search Image**
+<br>
 ![alt text](/img/posts/search-engine-search2.jpg "Search 2: Search Image")
 <br>
 **Search Results**
+<br>
 ![alt text](/img/posts/search-engine-search2-results.png "Search 2: Search Results")
 
 Again, these have come out really well - the features from VGG16, combined with Cosine Similarity have done a great job!
