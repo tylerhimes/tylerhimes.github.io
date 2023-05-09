@@ -20,7 +20,7 @@ In this project we build and optimize a Convolutional Neural Network to classify
 - [04. Baseline Network](#cnn-baseline)
 - [05. Tackling Overfitting With Dropout](#cnn-dropout)
 - [06. Image Augmentation](#cnn-augmentation)
-- [07. Hyper-Parameter Tuning](#cnn-tuning)
+- [07. Hyperparameter Tuning](#cnn-tuning)
 - [08. Transfer Learning](#cnn-transfer-learning)
 - [09. Overall Results Discussion](#cnn-results)
 - [10. Next Steps & Growth](#growth-next-steps)
@@ -81,11 +81,8 @@ The proof of concept was successful - we have shown that we can get very accurat
 
 Transfer Learning has been a big success and was the best performing network in terms of classification accuracy on the Test Set. However, we still only trained for a small number of epochs so we can push this even further. It would be worthwhile testing other available pre-trained networks such as ResNet, Inception, and the DenseNet networks.
 
-<br>
-<br>
-
 ___
-
+<br>
 # DATA OVERVIEW <a name="data-overview"></a>
 
 To build out this proof of concept, the client have provided us some sample data. This is made up of images of six different types of fruit sitting on the landing platform in the warehouse.
@@ -94,7 +91,6 @@ We randomly split the images for each fruit into training (60%), validation (30%
 
 Examples of four images of each fruit class can be seen in the image below:
 
-<br>
 ![alt text](/img/posts/cnn-image-examples.png "CNN Fruit Classification Samples")
 
 <br>
@@ -181,7 +177,6 @@ ___
 <br>
 # BASELINE NETWORK <a name="cnn-baseline"></a>
 
-<br>
 #### Network Architecture
 
 Our baseline network is simple but gives us a starting point to refine from. This network contains 2 **Convolutional Layers**, each with *32 filters*, and subsequent **Max Pooling Layers**. We have a single **Dense (Fully Connected) layer** following flattening with *32 neurons* followed by our output layer. We apply the **RELU** activation function on all layers and use the **ADAM** optimizer.
@@ -312,10 +307,8 @@ max(history.history['val_accuracy'])
 <br>
 The below image contains two plots: the first shows the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange). The second shows the epoch by epoch **Classification Accuracy** for both the training set (blue) and the validation set (orange).
 
-<br>
 ![alt text](/img/posts/cnn-baseline-accuracy-plot.png "CNN Baseline Accuracy Plot")
 
-<br>
 There are two key learnings from above plots: the first is that with this baseline architecture and the parameters we set for training, we are reaching our best performance in around 10-20 epochs. After that, not much improvement is seen. This isn't to say that 50 epochs is wrong - especially if we change our network - but is interesting to note at this point.
 
 The second learning is *very important* - the significant gap between orange and blue lines on the plot, in other words between our validation performance and our training performance, shows that we are over-fitting.
@@ -491,7 +484,6 @@ ___
 <br>
 # TACKLING OVERFITTING WITH DROPOUT <a name="cnn-dropout"></a>
 
-<br>
 #### Dropout Overview
 
 Dropout is a technique used in Deep Learning primarily to reduce the effects of over-fitting. Over-fitting is where the network learns the patterns of the training data so specifically, that it runs the risk of not generalizing well and being very unreliable when used to predict on new, unseen data.
@@ -548,10 +540,8 @@ With the baseline network we saw very strong overfitting in action - it will be 
 
 The below image shows the same two plots we analyzed for the updated network - the first showing the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange). The second show the epoch by epoch **Classification Accuracy** for both the training set (blue) and the validation set (orange).
 
-<br>
 ![alt text](/img/posts/cnn-dropout-accuracy-plot.png "CNN Dropout Accuracy Plot")
 
-<br>
 First, we can see a peak Classification Accuracy on the validation set of around **89%**, which is higher than the **83%** we saw for the baseline network.
 
 Second, and what we were really looking to see, is that gap between the Classification Accuracy on the training set and the validation set has been mostly eliminated. The two lines are trending up at more or less the same rate across all epochs of training and the accuracy on the training set never reach 100% as it did before - meaning that we are indeed seeing the *generalization* that we want!
@@ -607,7 +597,6 @@ ___
 <br>
 # IMAGE AUGMENTATION <a name="cnn-augmentation"></a>
 
-<br>
 #### Image Augmentation Overview
 
 Image Augmentation is a concept in Deep Learning that aims to not only increase predictive performance, but also to increase the robustness of the network through regularization.
@@ -683,10 +672,8 @@ With the baseline network we saw very strong overfitting in action - it will be 
 
 The below image shows the same two plots we analyzed for the updated network: the first shows the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange). The second shows the epoch by epoch **Classification Accuracy** for both the training set (blue) and the validation set (orange).
 
-<br>
 ![alt text](/img/posts/cnn-augmentation-accuracy-plot.png "CNN Dropout Accuracy Plot")
 
-<br>
 First, we can see a peak Classification Accuracy on the validation set of around **97%**, which is higher than the **83%** we saw for the baseline network and higher than the **89%** we saw for the network with Dropout added.
 
 Second, and what we were again really looking to see, is the gap between the Classification Accuracy on the training set and the validation set has been mostly eliminated. The two lines are trending up at more or less the same rate across all epochs of training and the accuracy on the training set also never reaches 100% as it did before, meaning that Image Augmentation is also giving the network the *generalization* that we want!
@@ -742,9 +729,8 @@ Utilizing Image Augmentation *and* applying Dropout will be a powerful combinati
 
 ___
 <br>
-# HYPER-PARAMETER TUNING <a name="cnn-tuning"></a>
+# HYPERPARAMETER TUNING <a name="cnn-tuning"></a>
 
-<br>
 #### Keras Tuner Overview
 
 So far, with our Fruit Classification task we have:
@@ -972,7 +958,6 @@ Non-trainable params: 0
 _________________________________________________________________
 ```
 
-<br>
 Our optimized architecture has a total of 2.7 million parameters, a step up from 1.1 million in the baseline architecture.
 
 <br>
@@ -987,10 +972,8 @@ As we again saved our training process to the *history* object, we can now analy
 
 The below image shows the same two plots we analyzed for the tuned network: the first shows the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange). The second shows the epoch by epoch **Classification Accuracy** for both the training set (blue) and the validation set (orange).
 
-<br>
 ![alt text](/img/posts/cnn-tuned-accuracy-plot.png "CNN Tuned Accuracy Plot")
 
-<br>
 First, we can see a peak Classification Accuracy on the validation set of around **98%**, which is the highest we have seen from all networks so far - just higher than the **97%** we saw for the addition of Image Augmentation to our baseline network.
 
 As Dropout and Image Augmentation are in place here, we again see the elimination of overfitting.
@@ -1044,7 +1027,6 @@ ___
 <br>
 # TRANSFER LEARNING WITH VGG16 <a name="cnn-transfer-learning"></a>
 
-<br>
 #### Transfer Learning Overview
 
 Transfer Learning is an extremely powerful way for us to utilize pre-built and pre-trained networks. We can apply these in a clever way to solve *our* specific Deep Learning based tasks. It consists of taking features learned on one problem and leveraging them on a new, similar problem!
@@ -1055,7 +1037,6 @@ The hope is that the features which have already been learned will be good enoug
 
 For our Fruit Classification task, we will be utilizing a famous network known as **VGG16**. This was designed back in 2014, but even by today's standards is a fairly heft network. It was trained on the famous *ImageNet* dataset, with over a million images across one thousand different image classes. Everything from goldfish, to cauliflowers, to bottles of wine, to scuba divers!
 
-<br>
 ![alt text](/img/posts/vgg16-architecture.png "VGG16 Architecture")
 
 <br>
@@ -1203,7 +1184,6 @@ Non-trainable params: 14,714,688
 _________________________________________________________________
 ```
 
-<br>
 Our VGG16 architecture has a total of 17.9 million parameters - much bigger than what we have built so far. Of this, 14.7 million parameters are frozen and 3.2 million parameters will be updated during each iteration of back-propagation - these are going to be figuring out exactly how to use those frozen parameters that were learned from the ImageNet dataset to predict our classes of fruit!
 
 <br>
@@ -1218,10 +1198,8 @@ As we again saved our training process to the *history* object, we can now analy
 
 The below image shows the same two plots we analyzed for the tuned network: the first shows the epoch by epoch **Loss** for both the training set (blue) and the validation set (orange). The second shows the epoch by epoch **Classification Accuracy** for both the training set (blue) and the validation set (orange).
 
-<br>
 ![alt text](/img/posts/cnn-vgg16-accuracy-plot.png "VGG16 Accuracy Plot")
 
-<br>
 First, we can see a peak Classification Accuracy on the validation set of around **98%**, which is equal to the highest we have seen from all networks so far. What is impressive is that it achieved this in only 10 epochs!
 
 <br>
@@ -1281,7 +1259,7 @@ In terms of Classification Accuracy on the Test Set, we saw:
 * Baseline Network: **75%**
 * Baseline + Dropout: **85%**
 * Baseline + Image Augmentation: **93%**
-* Optimised Architecture + Dropout + Image Augmentation: **95%**
+* Optimized Architecture + Dropout + Image Augmentation: **95%**
 * Transfer Learning Using VGG16: **98%**
 
 Tuning the network's architecture with Keras-Tuner gave us a great boost but was also very time intensive - however, if this time investment results in improved accuracy then it is time well spent.
