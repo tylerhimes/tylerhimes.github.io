@@ -391,12 +391,12 @@ plt.show()
 
 <br>
 The search image, and search results are below:
-
-**Search Image**
+<br>
+**SEARCH IMAGE**
 <br>
 ![alt text](/img/posts/search-engine-search1.jpg "Search 1: Search Image")
 <br>
-**Search Results**
+**SEARCH RESULTS**
 <br>
 ![alt text](/img/posts/search-engine-search1-results.png "Search 1: Search Results")
 
@@ -404,12 +404,12 @@ Very impressive results! From the 300 base-set images, these are the eight that 
 
 <br>
 Let's take a look at a second search image...
-
-**Search Image**
+<br>
+**SEARCH IMAGE**
 <br>
 ![alt text](/img/posts/search-engine-search2.jpg "Search 2: Search Image")
 <br>
-**Search Results**
+**Search RESULTS**
 <br>
 ![alt text](/img/posts/search-engine-search2-results.png "Search 2: Search Results")
 
