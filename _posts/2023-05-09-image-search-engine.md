@@ -74,7 +74,7 @@ Here we utilized VGG16. It would be worthwhile testing other available pre-train
 
 <br>
 ___
-<BR>
+<br>
 # SAMPLE DATA OVERVIEW <a name="sample-data-overview"></a>
 
 For our proof-of-concept, we are working in only one section of the client's product base - women's shoes.
