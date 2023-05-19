@@ -9,7 +9,7 @@ plugins:
 #-------------------------------
 # General Site Settings
 title: Tyler Himes
-description: "Hi I'm Tyler, and I'm a Data Scientist. My portfolio focuses on interesting projects I've recently undertaken, with a strong emphasis on business impact. Please visit my Github & LinkedIn pages (or download my Resume) by using the links below!"
+description: "Greetings! I'm Tyler - a Data Scientist showcasing a collection of compelling projects in my portfolio. With a keen focus on driving tangible business impact, I invite you to explore my GitHub and LinkedIn profiles (or download my Resume) using the links provided below. Let's connect and delve into the world of data science!"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 
