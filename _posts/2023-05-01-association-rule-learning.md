@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Understanding Alcohol Product Relationships Using Association Rule Learning
+description: In this project we use Association Rule Learning to analyze the transactional relationships and dependencies between products in the alcohol section of a grocery store.
 image: "/posts/association-rules-title-img.png"
 tags: [Association Rule Learning, Python]
 ---
