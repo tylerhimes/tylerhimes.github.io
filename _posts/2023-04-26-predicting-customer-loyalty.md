@@ -1,11 +1,12 @@
 ---
 layout: post
 title: Predicting Customer Loyalty Using ML
+description: Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database. However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.  Let's use ML to solve this!
 image: "/posts/regression-title-img.png"
 tags: [Customer Loyalty, Machine Learning, Regression, Python]
 ---
 
-Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database.  However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.  Let's use ML to solve this!
+Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database. However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.  Let's use ML to solve this!
 
 # TABLE OF CONTENTS
 
@@ -30,7 +31,7 @@ ___
 
 ### Context <a name="overview-context"></a>
 
-Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database.  However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.
+Our client, a grocery retailer, hired a market research consultancy to append market level customer loyalty information to the database. However, only around 50% of the client's customer base could be tagged, thus the other half did not have this information present.
 
 The overall aim of this work is to accurately predict the *loyalty score* for those customers who could not be tagged, enabling our client a clear understanding of true customer loyalty, regardless of total spend volume - and allowing for more accurate and relevant customer tracking, targeting, and communications.
 
@@ -89,7 +90,7 @@ ___
 
 # DATA OVERVIEW <a name="data-overview"></a>
 
-We will be predicting the `loyalty_score` metric.  This metric exists for half of the customer base in the `loyalty_scores` table of the client database.
+We will be predicting the `loyalty_score` metric. This metric exists for half of the customer base in the `loyalty_scores` table of the client database.
 
 The key variables hypothesised to predict the missing loyalty scores will come from the client database, namely the `transactions` table, the `customer_details` table, and the `product_areas` table.
 
@@ -265,7 +266,7 @@ for column in outlier_columns:
 <br>
 ##### Split Out Data For Modeling
 
-In the next code block we do two things: first, we split our data into an `X` object which contains only the predictor variables, and a `y` object that contains only our dependent variable. Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training.  In this case, we have allocated 80% of the data for training and the remaining 20% for validation.
+In the next code block we do two things: first, we split our data into an `X` object which contains only the predictor variables, and a `y` object that contains only our dependent variable. Once we have done this, we split our data into training and test sets to ensure we can fairly validate the accuracy of the predictions on data that was not used in training. In this case, we have allocated 80% of the data for training and the remaining 20% for validation.
 
 ```python
 # Split data into X and y objects for modeling
